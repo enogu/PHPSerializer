@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHPSerializer", "PHPSerializer\PHPSerializer.csproj", "{65589A78-F0D3-4E18-95C6-0CCCB095A543}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHPSerializer.Test", "PHPSerialize.Test\PHPSerializer.Test.csproj", "{806525C5-F921-43AE-81C7-38DC05278282}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{131636AB-8934-4966-A635-C68A4B576391}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		PHPSerializer.vsmdi = PHPSerializer.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = PHPSerializer.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65589A78-F0D3-4E18-95C6-0CCCB095A543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65589A78-F0D3-4E18-95C6-0CCCB095A543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65589A78-F0D3-4E18-95C6-0CCCB095A543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65589A78-F0D3-4E18-95C6-0CCCB095A543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{806525C5-F921-43AE-81C7-38DC05278282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{806525C5-F921-43AE-81C7-38DC05278282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{806525C5-F921-43AE-81C7-38DC05278282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{806525C5-F921-43AE-81C7-38DC05278282}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
