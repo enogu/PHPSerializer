@@ -4,69 +4,73 @@ using System.Text;
 
 namespace PHP.Internals {
     class Integer : PHPPrimitive {
+        private readonly long value;
+
         public Integer(int value) {
+            this.value = value;
         }
         public Integer(long value) {
+            this.value = value;
         }
 
         protected override TypeCode GetTypeCode() {
-            throw new NotImplementedException();
+            return TypeCode.Int64;
         }
 
         protected override bool ToBoolean(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return this.value != 0;
         }
 
         protected override byte ToByte(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (byte)this.value;
         }
 
         protected override char ToChar(IFormatProvider provider) {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         protected override decimal ToDecimal(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (decimal)this.value;
         }
 
         protected override double ToDouble(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (double)this.value;
         }
 
         protected override short ToInt16(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (short)this.value;
         }
 
         protected override int ToInt32(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (int)this.value;
         }
 
         protected override long ToInt64(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return this.value;
         }
 
         protected override sbyte ToSByte(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (sbyte)this.value;
         }
 
         protected override float ToSingle(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (float)this.value;
         }
 
         protected override string ToString(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return this.value.ToString();
         }
 
         protected override ushort ToUInt16(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (ushort)this.value;
         }
 
         protected override uint ToUInt32(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (uint)this.value;
         }
 
         protected override ulong ToUInt64(IFormatProvider provider) {
-            throw new NotImplementedException();
+            return (ulong)this.value;
         }
     }
 }
