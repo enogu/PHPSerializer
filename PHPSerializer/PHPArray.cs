@@ -8,6 +8,8 @@ namespace PHP {
             throw new NotImplementedException();
         }
 
+        #region IDictionary<PHPValue, PHPValue>
+
         public void Add(PHPValue key, PHPValue value) {
             throw new NotImplementedException();
         }
@@ -75,6 +77,68 @@ namespace PHP {
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        protected override TypeCode GetTypeCode() {
+            throw new NotSupportedException();
+        }
+
+        protected override bool ToBoolean(IFormatProvider provider) {
+            return this.Count != 0;
+        }
+
+        protected override byte ToByte(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override char ToChar(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override decimal ToDecimal(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override double ToDouble(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override short ToInt16(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override int ToInt32(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override long ToInt64(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override sbyte ToSByte(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override float ToSingle(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override string ToString(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override ushort ToUInt16(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override uint ToUInt32(IFormatProvider provider) {
+            throw new NotSupportedException();
+        }
+
+        protected override ulong ToUInt64(IFormatProvider provider) {
+            throw new NotSupportedException();
         }
     }
 }
