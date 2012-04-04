@@ -69,6 +69,14 @@ namespace PHPSerialize.Test
             Assert.AreEqual(1000, (int)target); 
         }
 
+        [TestMethod]
+        public void SerializeTest() {
+            Integer target = new Integer(1000);
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, null);
+            Assert.AreEqual("i:1000", actual.ToString());
+        }
+
         /// <summary>
         ///System.IConvertible.GetTypeCode のテスト
         ///</summary>

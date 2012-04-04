@@ -70,6 +70,15 @@ namespace PHPSerialize.Test
             Assert.AreEqual(1000.0, (double)target);
         }
 
+        [TestMethod]
+        public void SerializeTest() {
+            var value = 20.14;
+            Target target = new Target(value);
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, null);
+            Assert.AreEqual("d:" + value.ToString(), actual.ToString());
+        }
+
         /// <summary>
         ///System.IConvertible.GetTypeCode のテスト
         ///</summary>

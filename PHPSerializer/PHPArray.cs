@@ -4,6 +4,10 @@ using System.Text;
 
 namespace PHP {
     public class PHPArray : PHPValue, IDictionary<PHPValue, PHPValue> {
+        public override void Serialize(StringBuilder builder, Encoding encoding) {
+            throw new NotImplementedException();
+        }
+
         public void Add(PHPValue key, PHPValue value) {
             throw new NotImplementedException();
         }

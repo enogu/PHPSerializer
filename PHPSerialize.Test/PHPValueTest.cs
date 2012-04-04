@@ -66,6 +66,7 @@ namespace PHPSerialize.Test
             return target;
         }
 
+        /*
         /// <summary>
         ///Serialize のテスト
         ///</summary>
@@ -78,6 +79,7 @@ namespace PHPSerialize.Test
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("このテストメソッドの正確性を確認します。");
         }
+        */
 
         /// <summary>
         ///Unserialize のテスト
@@ -87,7 +89,7 @@ namespace PHPSerialize.Test
             string value = string.Empty; // TODO: 適切な値に初期化してください
             PHPValue expected = null; // TODO: 適切な値に初期化してください
             PHPValue actual;
-            actual = PHPValue.Unserialize(value);
+            actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("このテストメソッドの正確性を確認します。");
         }

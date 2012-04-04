@@ -70,6 +70,22 @@ namespace PHPSerialize.Test
             Assert.IsTrue(target);
         }
 
+        [TestMethod]
+        public void SerializeTest() {
+            Target target = new Target(true);
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, null);
+            Assert.AreEqual("b:1", actual.ToString());
+        }
+
+        [TestMethod]
+        public void SerializeFalseTest() {
+            Target target = new Target(false);
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, null);
+            Assert.AreEqual("b:0", actual.ToString());
+        }
+
         /// <summary>
         ///System.IConvertible.GetTypeCode のテスト
         ///</summary>

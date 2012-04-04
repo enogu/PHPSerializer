@@ -70,6 +70,22 @@ namespace PHPSerialize.Test
             Assert.AreEqual("test", (string)target);
         }
 
+        [TestMethod]
+        public void SerializeTest() {
+            Target target = new Target("テスト");
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, System.Text.Encoding.UTF8);
+            Assert.AreEqual("s:9:\"テスト\"", actual.ToString());
+        }
+
+        [TestMethod]
+        public void SerializeUTF16Test() {
+            Target target = new Target("テスト");
+            var actual = new System.Text.StringBuilder();
+            target.Serialize(actual, System.Text.Encoding.Unicode);
+            Assert.AreEqual("s:6:\"テスト\"", actual.ToString());
+        }
+
         /// <summary>
         ///System.IConvertible.GetTypeCode のテスト
         ///</summary>

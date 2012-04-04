@@ -10,6 +10,10 @@ namespace PHP.Internals {
             this.value = value;
         }
 
+        public override void Serialize(StringBuilder builder, Encoding encoding) {
+            builder.Append(this.value ? "b:1" : "b:0");
+        }
+
         protected override TypeCode GetTypeCode() {
             return TypeCode.Boolean;
         }

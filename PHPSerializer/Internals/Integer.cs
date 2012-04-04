@@ -13,6 +13,10 @@ namespace PHP.Internals {
             this.value = value;
         }
 
+        public override void Serialize(StringBuilder builder, Encoding encoding) {
+            builder.AppendFormat("i:{0}", this.value);
+        }
+
         protected override TypeCode GetTypeCode() {
             return TypeCode.Int64;
         }
