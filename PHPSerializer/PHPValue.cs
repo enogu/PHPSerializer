@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace PHP {
-    public abstract class PHPValue : IConvertible {
+    public abstract class PHPValue : IConvertible, IEquatable<PHPValue> {
         public static PHPValue Unserialize(string value, Encoding encoding) {
             try {
                 int pos = 0;
@@ -102,49 +102,100 @@ namespace PHP {
 
         public abstract void Serialize(StringBuilder builder, Encoding encoding);
 
+        #region Predicates
+
+        public virtual bool IsNumeric() {
+            return false;
+        }
+
+        #endregion
+
         #region Implicit operators
 
         public static implicit operator bool(PHPValue value) {
-                return ((IConvertible)value).ToBoolean(null);
+            return value.ToBoolean(null);
         }
         public static implicit operator byte(PHPValue value) {
-                return ((IConvertible)value).ToByte(null);
+            return value.ToByte(null);
         }
         public static implicit operator char(PHPValue value) {
-                return ((IConvertible)value).ToChar(null);
+            return value.ToChar(null);
         }
         public static implicit operator decimal(PHPValue value) {
-                return ((IConvertible)value).ToDecimal(null);
+            return value.ToDecimal(null);
         }
         public static implicit operator double(PHPValue value) {
-                return ((IConvertible)value).ToDouble(null);
+            return value.ToDouble(null);
         }
         public static implicit operator short(PHPValue value) {
-                return ((IConvertible)value).ToInt16(null);
+            return value.ToInt16(null);
         }
         public static implicit operator int(PHPValue value) {
-                return ((IConvertible)value).ToInt32(null);
+            return value.ToInt32(null);
         }
         public static implicit operator long(PHPValue value) {
-                return ((IConvertible)value).ToInt64(null);
+            return value.ToInt64(null);
         }
         public static implicit operator sbyte(PHPValue value) {
-                return ((IConvertible)value).ToSByte(null);
+            return value.ToSByte(null);
         }
         public static implicit operator float(PHPValue value) {
-                return ((IConvertible)value).ToSingle(null);
+            return value.ToSingle(null);
         }
         public static implicit operator string(PHPValue value) {
-                return ((IConvertible)value).ToString(null);
+            return value.ToString(null);
         }
         public static implicit operator ushort(PHPValue value) {
-                return ((IConvertible)value).ToUInt16(null);
+            return value.ToUInt16(null);
         }
         public static implicit operator uint(PHPValue value) {
-                return value.ToUInt32(null);
+            return value.ToUInt32(null);
         }
         public static implicit operator ulong(PHPValue value) {
-                return ((IConvertible)value).ToUInt64(null);
+            return value.ToUInt64(null);
+        }
+
+        public static implicit operator PHPValue(bool value) {
+            return new Internals.Boolean(value);
+        }
+        public static implicit operator PHPValue(byte value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(char value) {
+            return new Internals.String(value);
+        }
+        public static implicit operator PHPValue(decimal value) {
+            return new Internals.String(value.ToString());
+        }
+        public static implicit operator PHPValue(double value) {
+            return new Internals.Double(value);
+        }
+        public static implicit operator PHPValue(short value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(int value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(long value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(sbyte value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(float value) {
+            return new Internals.Double(value);
+        }
+        public static implicit operator PHPValue(string value) {
+            return new Internals.String(value);
+        }
+        public static implicit operator PHPValue(ushort value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(uint value) {
+            return new Internals.Integer(value);
+        }
+        public static implicit operator PHPValue(ulong value) {
+            return new Internals.Integer((long)value);
         }
 
         #endregion
@@ -233,6 +284,31 @@ namespace PHP {
         protected abstract ushort ToUInt16(IFormatProvider provider); 
         protected abstract uint ToUInt32(IFormatProvider provider); 
         protected abstract ulong ToUInt64(IFormatProvider provider);
+
+        #endregion
+        #region Comparer
+
+        public virtual bool Equals(PHPValue other) {
+            return other != null && base.Equals(other);
+        }
+
+        public override sealed bool Equals(object obj) {
+            return obj is PHPValue && this.Equals((PHPValue)obj);
+        }
+
+        public static bool operator ==(PHPValue value1, PHPValue value2) {
+            if (Object.Equals(value1, null)) {
+                return Object.Equals(value2, null);
+            }
+            return value1.Equals(value2);
+        }
+
+        public static bool operator !=(PHPValue value1, PHPValue value2) {
+            if (Object.Equals(value1, null)) {
+                return Object.Equals(value2, null);
+            }
+            return !value1.Equals(value2);
+        }
 
         #endregion
     }

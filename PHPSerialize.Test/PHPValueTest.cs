@@ -120,21 +120,21 @@ namespace PHPSerialize.Test
             string value = "d:1.5";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(1.5, actual);
+            Assert.AreEqual(1.5, (double)actual);
         }
         [TestMethod()]
         public void UnserializeNegativeDoubleTest() {
             string value = "d:-1.3";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(-1.3, actual);
+            Assert.AreEqual(-1.3, (double)actual);
         }
         [TestMethod()]
         public void UnserializeZeroDoubleTest() {
             string value = "d:0";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(0.0, actual);
+            Assert.AreEqual(0.0, (double)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -142,7 +142,7 @@ namespace PHPSerialize.Test
             string value = "d:";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (double)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -150,7 +150,7 @@ namespace PHPSerialize.Test
             string value = "d 1.2";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(1.2, actual);
+            Assert.AreEqual(1.2, (double)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -158,7 +158,7 @@ namespace PHPSerialize.Test
             string value = "d:1.1.1";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (double)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -166,7 +166,7 @@ namespace PHPSerialize.Test
             string value = "d:a";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Double));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (double)actual);
         }
         
         [TestMethod()]
@@ -174,14 +174,14 @@ namespace PHPSerialize.Test
             string value = "i:10";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(10, actual);
+            Assert.AreEqual(10, (int)actual);
         }
         [TestMethod()]
         public void UnserializeNegativeIntegerTest() {
             string value = "i:-10";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(-10, actual);
+            Assert.AreEqual(-10, (int)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -189,7 +189,7 @@ namespace PHPSerialize.Test
             string value = "i:";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (int)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -197,7 +197,7 @@ namespace PHPSerialize.Test
             string value = "i 10";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(1.2, actual);
+            Assert.AreEqual(1.2, (double)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -205,7 +205,7 @@ namespace PHPSerialize.Test
             string value = "i:10.1";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (int)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]
@@ -213,7 +213,7 @@ namespace PHPSerialize.Test
             string value = "i:a";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.Integer));
-            Assert.AreEqual(0, actual);
+            Assert.AreEqual(0, (int)actual);
         }
 
         [TestMethod()]
@@ -221,14 +221,14 @@ namespace PHPSerialize.Test
             string value = "s:15:\"abcdefghij12345\"";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.String));
-            Assert.AreEqual("abcdefghij12345", actual);
+            Assert.AreEqual("abcdefghij12345", (string)actual);
         }
         [TestMethod()]
         public void UnserializeEmptyStringTest() {
             string value = "s:0:\"\"";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.String));
-            Assert.AreEqual(string.Empty, actual);
+            Assert.AreEqual(string.Empty, (string)actual);
         }
         [TestMethod()]
         [ExpectedException(typeof(FormatException))]

@@ -13,6 +13,10 @@ namespace PHP.Internals {
             this.value = value;
         }
 
+        public override bool IsNumeric() {
+            return true;
+        }
+
         public override void Serialize(StringBuilder builder, Encoding encoding) {
             builder.AppendFormat("i:{0}", this.value);
         }
@@ -75,6 +79,20 @@ namespace PHP.Internals {
 
         protected override ulong ToUInt64(IFormatProvider provider) {
             return (ulong)this.value;
+        }
+
+        public override int GetHashCode() {
+            return this.value.GetHashCode();
+        }
+
+        public override bool Equals(PHPValue other) {
+            if (!Object.Equals(other, null)) {
+                if (other is Internals.Integer) {
+                    return ((Internals.Integer)other).value == this.value;
+                }
+                return this.value == (int)other;
+            }
+            return false;
         }
     }
 }
