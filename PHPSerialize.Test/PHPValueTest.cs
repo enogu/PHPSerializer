@@ -224,6 +224,13 @@ namespace PHPSerialize.Test
             Assert.AreEqual("abcdefghij12345", (string)actual);
         }
         [TestMethod()]
+        public void UnserializeMultibyteStringTest() {
+            string value = "s:9:\"テスト\"";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
+            Assert.IsInstanceOfType(actual, typeof(PHP.Internals.String));
+            Assert.AreEqual("テスト", (string)actual);
+        }
+        [TestMethod()]
         public void UnserializeEmptyStringTest() {
             string value = "s:0:\"\"";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
@@ -260,6 +267,80 @@ namespace PHPSerialize.Test
             string value = "s:1:a";
             var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
             Assert.IsInstanceOfType(actual, typeof(PHP.Internals.String));
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void UnserializeArrayTest() {
+            string value = "a:2:{i:0;i:1000;i:1;s:4:\"1001\";}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8) as PHPArray;
+            Assert.IsNotNull(actual);
+
+            Assert.IsTrue(actual.ContainsKey(0));
+            Assert.IsTrue(actual[0] as PHP.Internals.Integer);
+            Assert.AreEqual(1000, (int)actual[0]);
+
+            Assert.IsTrue(actual.ContainsKey(1));
+            Assert.IsTrue(actual[1] as PHP.Internals.String);
+            Assert.AreEqual("1001", (string)actual[1]);
+        }
+        [TestMethod()]
+        public void UnserializeNestedArrayTest() {
+            string value = "a:2:{i:0;i:1000;s:6:\"values\";a:1:{i:4;d:150.3;};i:1;s:4:\"1001\";}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8) as PHPArray;
+            Assert.IsNotNull(actual);
+
+            Assert.IsTrue(actual.ContainsKey(0));
+            Assert.IsTrue(actual[0] as PHP.Internals.Integer);
+            Assert.AreEqual(1000, (int)actual[0]);
+
+            Assert.IsTrue(actual.ContainsKey(1));
+            Assert.IsTrue(actual[1] as PHP.Internals.String);
+            Assert.AreEqual("1001", (string)actual[1]);
+
+            Assert.IsTrue(actual.ContainsKey("values"));
+            Assert.IsTrue(actual[1] as PHP.PHPArray);
+            var values = actual["values"] as PHPArray;
+            Assert.IsTrue(actual.ContainsKey(4));
+            Assert.AreEqual(150.3, (double)actual[4]);
+        }
+        [TestMethod()]
+        public void UnserializeEmptyArrayTest() {
+            string value = "a:0:{}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8) as PHPArray;
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(0, actual.Count);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(FormatException))]
+        public void UnserializeInvalidArrayTest1() {
+            string value = "a::{}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
+            Assert.IsInstanceOfType(actual, typeof(PHP.PHPArray));
+            Assert.IsFalse(actual);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(FormatException))]
+        public void UnserializeInvalidArrayTest2() {
+            string value = "a:0:}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
+            Assert.IsInstanceOfType(actual, typeof(PHP.PHPArray));
+            Assert.IsFalse(actual);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(FormatException))]
+        public void UnserializeInvalidArrayTest3() {
+            string value = "a:1:{}";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
+            Assert.IsInstanceOfType(actual, typeof(PHP.PHPArray));
+            Assert.IsFalse(actual);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(FormatException))]
+        public void UnserializeInvalidArrayTest4() {
+            string value = "a:1:{i:0;i:0;";
+            var actual = PHPValue.Unserialize(value, System.Text.Encoding.UTF8);
+            Assert.IsInstanceOfType(actual, typeof(PHP.PHPArray));
             Assert.IsFalse(actual);
         }
     }
