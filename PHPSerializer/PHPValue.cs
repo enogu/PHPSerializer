@@ -1,103 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace PHP {
     public abstract class PHPValue : IConvertible, IEquatable<PHPValue> {
-        public static PHPValue Unserialize(string value, Encoding encoding) {
-            try {
-                int pos = 0;
-                return Unserialize(ref pos, value, encoding);
-            }
-            catch (FormatException) {
-                throw;
-            }
-            catch (Exception error) {
-                throw new FormatException("", error);
-            }
-        }
-
-        private static PHPValue Unserialize(ref int pos, string value, Encoding encoding) {
-            int p = pos;
-            int limit = value.Length;
-            if (limit <= p) {
-                return null;
-            }
-            switch (value[p++]) {
-                case 'a':
-                    break;
-                case 'b':
-                    if (value[p++] == ':') {
-                        bool bvalue = value[p++] != '0';
-                        pos = p;
-                        return  new Internals.Boolean(bvalue);
-                    }
-                    break;
-                case 'd':
-                    if (value[p++] == ':') {
-                        var dstart = p;
-                        pos = SeekEndOfNumber(value, p, limit);
-                        return new Internals.Double(double.Parse(value.Substring(dstart, pos - dstart)));
-                    }
-                    break;
-                case 'i':
-                    if (value[p++] == ':') {
-                        var istart = p;
-                        pos = SeekEndOfNumber(value, p, limit);
-                        return new Internals.Integer(long.Parse(value.Substring(istart, pos - istart)));
-                    }
-                    break;
-                case 's':
-                    if (value[p++] == ':') {
-                        var lenstart = p;
-                        p = SeekEndOfNumber(value, p, limit);
-                        var slen = int.Parse(value.Substring(lenstart, p - lenstart));
-                        if (value[p++] == ':' && value[p++] == '"') {
-                            pos = p + slen;
-                            if (value[pos++] == '"') {
-                                return new Internals.String(value.Substring(p, slen));
-                            }
-                        }
-                        throw new FormatException();
-                    }
-                    break;
-            }
-            throw new NotSupportedException();
-        }
-
-        private static int SeekEndOfNumber(string value, int p, int limit) {
-            if (value[p] == '-') {
-                p++;
-            }
-            bool rep = false;
-            while (p < limit) {
-                switch (value[p]) {
-                    case '0':
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                        break;
-                    case '.':
-                        if (!rep) {
-                            rep = true;
-                            break;
-                        }
-                        throw new FormatException();
-                    case ';':
-                    case ':':
-                        return p;
-                    default:
-                        throw new FormatException();
-                }
-                p++;
-            }
-            return p;
+        public static PHPValue Unserialize(Stream stream, Encoding encoding) {
+            var reader = new Internals.SerializedBinaryReader(stream, encoding);
+            return reader.Parse();
         }
 
         public abstract void Serialize(StringBuilder builder, Encoding encoding);
