@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 
 namespace PHP.Internals {
-    class SerializedBinaryReader {
+    class Deserializer {
         const int UnserializeMinibufSize = 30;
 
         private readonly Stream stream;
@@ -12,7 +12,7 @@ namespace PHP.Internals {
         private readonly byte[] minibuf = new byte[UnserializeMinibufSize];
         private byte[] strbuf = new byte[1024];
 
-        public SerializedBinaryReader(Stream stream, Encoding encoding) {
+        public Deserializer(Stream stream, Encoding encoding) {
             this.stream = stream;
             this.encoding = encoding;
         }

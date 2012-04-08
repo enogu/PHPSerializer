@@ -6,7 +6,7 @@ using System.Text;
 namespace PHP {
     public abstract class PHPValue : IConvertible, IEquatable<PHPValue> {
         public static PHPValue Unserialize(Stream stream, Encoding encoding) {
-            var reader = new Internals.SerializedBinaryReader(stream, encoding);
+            var reader = new Internals.Deserializer(stream, encoding);
             return reader.Parse();
         }
 
