@@ -85,15 +85,15 @@ namespace PHP.Internals {
 
         private int ReadInt() {
             var len = ReadNumber();
-            return int.Parse(Encoding.ASCII.GetString(minibuf, 0, len));
+            return int.Parse(Encoding.UTF8.GetString(minibuf, 0, len));
         }
         private long ReadLong() {
             var len = ReadNumber();
-            return long.Parse(Encoding.ASCII.GetString(minibuf, 0, len));
+            return long.Parse(Encoding.UTF8.GetString(minibuf, 0, len));
         }
         private double ReadDouble() {
             var len = ReadNumber();
-            return double.Parse(Encoding.ASCII.GetString(minibuf, 0, len));
+            return double.Parse(Encoding.UTF8.GetString(minibuf, 0, len));
         }
 
         private int ReadNumber() {

@@ -39,7 +39,7 @@
     <Compile Include="Internals\Boolean.cs" />
     <Compile Include="Internals\Double.cs" />
     <Compile Include="Internals\Integer.cs" />
-    <Compile Include="Internals\SerializedBinaryReader.cs" />
+    <Compile Include="Internals\Deserializer.cs" />
     <Compile Include="Internals\String.cs" />
     <Compile Include="PHPArray.cs" />
     <Compile Include="PHPPrimitive.cs" />
