@@ -11,6 +11,28 @@ namespace PHP {
 
         private int lastIndex = 0;
 
+        public PHPArray(IEnumerable<PHPValue> items) {
+            if (items == null) {
+                throw new ArgumentNullException();
+            }
+            foreach (var item in items) {
+                this.Add(item);
+            }
+        }
+
+        public PHPArray(Dictionary<PHPValue, PHPValue> items) {
+            if (items == null) {
+                throw new ArgumentNullException();
+            }
+            foreach (var item in items) {
+                this.Add(item.Key, item.Value);
+            }
+        }
+
+        public PHPArray(params PHPValue[] items)
+            : this((IEnumerable<PHPValue>)items) {
+        }
+
         public override void Serialize(StringBuilder builder, Encoding encoding) {
             builder.AppendFormat("a:{0}:{{", this.dictionary.Count);
             foreach (var item in this.dictionary) {
